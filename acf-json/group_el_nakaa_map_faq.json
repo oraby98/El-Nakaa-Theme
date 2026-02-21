@@ -1,0 +1,68 @@
+{
+    "key": "group_el_nakaa_map_faq",
+    "title": "El Nakaa Map & FAQ",
+    "fields": [
+        {
+            "key": "field_map_iframe",
+            "label": "Google Map Embed Code",
+            "name": "map_iframe_code",
+            "type": "textarea",
+            "instructions": "Paste the <iframe> code from Google Maps here."
+        },
+        {
+            "key": "field_faq_title",
+            "label": "FAQ Title",
+            "name": "faq_title",
+            "type": "text",
+            "default_value": "الأسئلة الشائعة"
+        },
+        {
+            "key": "field_faq_subtitle",
+            "label": "FAQ Subtitle",
+            "name": "faq_subtitle",
+            "type": "text",
+            "default_value": "إجابات سريعة على أكثر الأسئلة شيوعاً"
+        },
+        {
+            "key": "field_faq_list",
+            "label": "FAQ List",
+            "name": "faq_list",
+            "type": "repeater",
+            "layout": "row",
+            "button_label": "Add Question",
+            "sub_fields": [
+                {
+                    "key": "field_faq_question",
+                    "label": "Question",
+                    "name": "question",
+                    "type": "text"
+                },
+                {
+                    "key": "field_faq_answer",
+                    "label": "Answer",
+                    "name": "answer",
+                    "type": "textarea",
+                    "rows": 3
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf/el-nakaa-map-faq"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Fields for El Nakaa Map & FAQ Block",
+    "show_in_rest": 0
+}

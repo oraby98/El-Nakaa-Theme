@@ -1,0 +1,79 @@
+{
+    "key": "group_product_features",
+    "title": "Product Features Breakdown",
+    "fields": [
+        {
+            "key": "field_product_features",
+            "label": "Features List",
+            "name": "product_features",
+            "type": "repeater",
+            "layout": "row",
+            "button_label": "Add Feature",
+            "sub_fields": [
+                {
+                    "key": "field_feature_title",
+                    "label": "Title",
+                    "name": "title",
+                    "type": "text"
+                },
+                {
+                    "key": "field_feature_desc",
+                    "label": "Description",
+                    "name": "description",
+                    "type": "textarea",
+                    "rows": 3
+                },
+                {
+                    "key": "field_feature_image",
+                    "label": "Feature Image",
+                    "name": "image",
+                    "type": "image",
+                    "return_format": "array",
+                    "preview_size": "medium"
+                },
+                {
+                    "key": "field_feature_specs",
+                    "label": "Technical Specs",
+                    "name": "specs",
+                    "type": "repeater",
+                    "layout": "table",
+                    "button_label": "Add Spec",
+                    "sub_fields": [
+                        {
+                            "key": "field_spec_text",
+                            "label": "Spec Text",
+                            "name": "spec_text",
+                            "type": "text"
+                        }
+                    ]
+                },
+                {
+                    "key": "field_feature_bg_style",
+                    "label": "Background Style",
+                    "name": "background_style",
+                    "type": "text",
+                    "instructions": "Enter CSS background property (e.g., linear-gradient(...))",
+                    "default_value": "background: linear-gradient(90deg,rgba(0,0,0,0)_0.17%,rgba(0,0,0,0.5)_193.1%,#000_264.18%)"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "product"
+            }
+        ]
+    ],
+    "menu_order": 10,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Dynamic Features Section for Single Product",
+    "show_in_rest": 0
+}

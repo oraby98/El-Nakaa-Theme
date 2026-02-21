@@ -1,0 +1,71 @@
+{
+    "key": "group_el_nakaa_social_follow",
+    "title": "El Nakaa Social Follow",
+    "fields": [
+        {
+            "key": "field_social_title",
+            "label": "Section Title",
+            "name": "social_title",
+            "type": "text",
+            "default_value": "تابعنا على وسائل التواصل"
+        },
+        {
+            "key": "field_social_text",
+            "label": "Section Text",
+            "name": "social_text",
+            "type": "textarea",
+            "default_value": "ابق على اطلاع بآخر منتجاتنا وعروضنا الحصرية"
+        },
+        {
+            "key": "field_social_links",
+            "label": "Social Links",
+            "name": "social_links",
+            "type": "repeater",
+            "layout": "block",
+            "button_label": "Add Link",
+            "sub_fields": [
+                {
+                    "key": "field_social_icon",
+                    "label": "Icon Class",
+                    "name": "icon_class",
+                    "type": "text"
+                },
+                {
+                    "key": "field_social_url",
+                    "label": "URL",
+                    "name": "url",
+                    "type": "url"
+                },
+                {
+                    "key": "field_social_style",
+                    "label": "Style",
+                    "name": "style",
+                    "type": "select",
+                    "choices": {
+                        "light": "Light (Yellow BG)",
+                        "solid": "Solid (Main Color BG)"
+                    },
+                    "default_value": "light"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf/el-nakaa-social-follow"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Fields for El Nakaa Social Follow Block",
+    "show_in_rest": 0
+}

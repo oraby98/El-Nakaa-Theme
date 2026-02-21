@@ -1,0 +1,205 @@
+{
+    "key": "group_el_nakaa_about_us",
+    "title": "El Nakaa About Us",
+    "fields": [
+        {
+            "key": "field_tab_about",
+            "label": "About Section",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_about_tagline",
+            "label": "Tagline",
+            "name": "about_tagline",
+            "type": "text",
+            "default_value": "قصتنا"
+        },
+        {
+            "key": "field_about_title",
+            "label": "Title",
+            "name": "about_title",
+            "type": "text",
+            "default_value": "من ورشة صغيرة إلى مصنع رائد"
+        },
+        {
+            "key": "field_about_content",
+            "label": "Content",
+            "name": "about_content",
+            "type": "wysiwyg",
+            "media_upload": 0,
+            "toolbar": "basic"
+        },
+        {
+            "key": "field_about_image",
+            "label": "Image",
+            "name": "about_image",
+            "type": "image",
+            "return_format": "array",
+            "preview_size": "medium"
+        },
+        {
+            "key": "field_tab_vision_mission",
+            "label": "Vision & Mission",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_vision_title",
+            "label": "Vision Title",
+            "name": "vision_title",
+            "type": "text",
+            "default_value": "رؤيتنا"
+        },
+        {
+            "key": "field_vision_text",
+            "label": "Vision Text",
+            "name": "vision_text",
+            "type": "textarea",
+            "rows": 3
+        },
+        {
+            "key": "field_vision_icon_class",
+            "label": "Vision Icon Class (FontAwesome)",
+            "name": "vision_icon_class",
+            "type": "text",
+            "default_value": "fa-regular fa-eye"
+        },
+        {
+            "key": "field_mission_title",
+            "label": "Mission Title",
+            "name": "mission_title",
+            "type": "text",
+            "default_value": "رسالتنا"
+        },
+        {
+            "key": "field_mission_text",
+            "label": "Mission Text",
+            "name": "mission_text",
+            "type": "textarea",
+            "rows": 3
+        },
+        {
+            "key": "field_mission_icon_class",
+            "label": "Mission Icon Class (FontAwesome)",
+            "name": "mission_icon_class",
+            "type": "text",
+            "default_value": "fa-solid fa-bullseye"
+        },
+        {
+            "key": "field_tab_values",
+            "label": "Core Values",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_values_title",
+            "label": "Section Title",
+            "name": "values_title",
+            "type": "text",
+            "default_value": "قيمنا الأساسية"
+        },
+        {
+            "key": "field_values_description",
+            "label": "Section Description",
+            "name": "values_description",
+            "type": "textarea",
+            "rows": 2
+        },
+        {
+            "key": "field_values_list",
+            "label": "Values List",
+            "name": "values_list",
+            "type": "repeater",
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_values_icon_class",
+                    "label": "Icon Class",
+                    "name": "icon_class",
+                    "type": "text"
+                },
+                {
+                    "key": "field_values_item_title",
+                    "label": "Title",
+                    "name": "title",
+                    "type": "text"
+                },
+                {
+                    "key": "field_values_item_desc",
+                    "label": "Description",
+                    "name": "description",
+                    "type": "textarea",
+                    "rows": 2
+                }
+            ]
+        },
+        {
+            "key": "field_tab_cta",
+            "label": "CTA Section",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_cta_title",
+            "label": "Title",
+            "name": "cta_title",
+            "type": "text",
+            "default_value": "انضم إلى عائلة نقاوة"
+        },
+        {
+            "key": "field_cta_text",
+            "label": "Text",
+            "name": "cta_text",
+            "type": "textarea"
+        },
+        {
+            "key": "field_cta_btn1_text",
+            "label": "Button 1 Text",
+            "name": "cta_btn1_text",
+            "type": "text",
+            "default_value": "تصفح المنتجات"
+        },
+        {
+            "key": "field_cta_btn1_url",
+            "label": "Button 1 URL",
+            "name": "cta_btn1_url",
+            "type": "url"
+        },
+        {
+            "key": "field_cta_btn2_text",
+            "label": "Button 2 Text",
+            "name": "cta_btn2_text",
+            "type": "text",
+            "default_value": "تواصل معنا"
+        },
+        {
+            "key": "field_cta_btn2_url",
+            "label": "Button 2 URL",
+            "name": "cta_btn2_url",
+            "type": "url"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf/el-nakaa-about-us"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Fields for El Nakaa About Us Block",
+    "show_in_rest": 0
+}

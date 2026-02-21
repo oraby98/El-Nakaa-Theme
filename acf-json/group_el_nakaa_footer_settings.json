@@ -1,0 +1,171 @@
+{
+    "key": "group_el_nakaa_footer_settings",
+    "title": "Footer Settings",
+    "fields": [
+        {
+            "key": "field_footer_features_tab",
+            "label": "Features Section",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_footer_features",
+            "label": "Features",
+            "name": "footer_features",
+            "type": "repeater",
+            "instructions": "Add features like Free Shipping, Warranty etc.",
+            "sub_fields": [
+                {
+                    "key": "field_feature_icon_class",
+                    "label": "Icon Class",
+                    "name": "icon_class",
+                    "type": "text",
+                    "instructions": "e.g., fa-solid fa-truck-fast"
+                },
+                {
+                    "key": "field_feature_title",
+                    "label": "Title",
+                    "name": "title",
+                    "type": "text"
+                },
+                {
+                    "key": "field_feature_subtitle",
+                    "label": "Subtitle",
+                    "name": "subtitle",
+                    "type": "text"
+                }
+            ],
+            "layout": "block",
+            "button_label": "Add Feature",
+            "default_value": [
+                {
+                    "field_feature_icon_class": "fa-solid fa-truck-fast",
+                    "field_feature_title": "شحن مجاني",
+                    "field_feature_subtitle": "للطلبات فوق 1000 جنيه"
+                },
+                {
+                    "field_feature_icon_class": "fa-solid fa-shield-halved",
+                    "field_feature_title": "ضمان سنتين",
+                    "field_feature_subtitle": "على جميع المنتجات"
+                },
+                {
+                    "field_feature_icon_class": "fa-solid fa-headset",
+                    "field_feature_title": "دعم 24/7",
+                    "field_feature_subtitle": "خدمة عملاء متميزة"
+                },
+                {
+                    "field_feature_icon_class": "fa-regular fa-credit-card",
+                    "field_feature_title": "دفع آمن",
+                    "field_feature_subtitle": "طرق دفع متعددة"
+                }
+            ]
+        },
+        {
+            "key": "field_footer_about_tab",
+            "label": "About Section",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_footer_logo",
+            "label": "Footer Logo",
+            "name": "footer_logo",
+            "type": "image",
+            "return_format": "url",
+            "preview_size": "medium",
+            "library": "all"
+        },
+        {
+            "key": "field_footer_about_text",
+            "label": "About Text",
+            "name": "footer_about_text",
+            "type": "textarea",
+            "rows": 4,
+            "default_value": "نقاوة - مصنع مصري رائد في صناعة الأجهزة الكهربائية المنزلية. نقدم لكم مجموعة بيور التي تجمع بين الجودة العالية والتصميم العصري."
+        },
+        {
+            "key": "field_footer_socials",
+            "label": "Social Media Links",
+            "name": "footer_socials",
+            "type": "repeater",
+            "layout": "table",
+            "button_label": "Add Social Link",
+            "sub_fields": [
+                {
+                    "key": "field_social_icon_class",
+                    "label": "Icon Class",
+                    "name": "icon_class",
+                    "type": "text",
+                    "instructions": "e.g., fa-brands fa-facebook-f"
+                },
+                {
+                    "key": "field_social_url",
+                    "label": "URL",
+                    "name": "url",
+                    "type": "url"
+                }
+            ]
+        },
+        {
+            "key": "field_footer_contact_tab",
+            "label": "Contact Info",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_footer_address",
+            "label": "Address",
+            "name": "footer_address",
+            "type": "text",
+            "default_value": "المنطقة الصناعية , القاهرة, مصر"
+        },
+        {
+            "key": "field_footer_phone",
+            "label": "Phone",
+            "name": "footer_phone",
+            "type": "text",
+            "default_value": "0123456789"
+        },
+        {
+            "key": "field_footer_email",
+            "label": "Email",
+            "name": "footer_email",
+            "type": "email",
+            "default_value": "info@nakawa.com"
+        },
+        {
+            "key": "field_footer_copyright_tab",
+            "label": "Copyright",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_footer_copyright",
+            "label": "Copyright Text",
+            "name": "footer_copyright",
+            "type": "text",
+            "default_value": "جميع الحقوق محفوظة © 2026 نقاوة - مصنع الأجهزة الكهربائية"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "el-nakaa-footer-settings"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": ""
+}

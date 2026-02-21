@@ -1,0 +1,58 @@
+{
+    "key": "group_el_nakaa_whatsapp_card",
+    "title": "El Nakaa WhatsApp Card",
+    "fields": [
+        {
+            "key": "field_whatsapp_title",
+            "label": "Title",
+            "name": "whatsapp_title",
+            "type": "text",
+            "default_value": "راسلنا مباشرة عبر واتساب"
+        },
+        {
+            "key": "field_whatsapp_text",
+            "label": "Text",
+            "name": "whatsapp_text",
+            "type": "textarea",
+            "default_value": "أسرع وأسهل طريقة للتواصل معنا. فريقنا بانتظارك على مدار الساعة لتقديم الدعم المطلوب"
+        },
+        {
+            "key": "field_whatsapp_btn_text",
+            "label": "Button Text",
+            "name": "whatsapp_btn_text",
+            "type": "text",
+            "default_value": "ابدأ المحادثة الآن"
+        },
+        {
+            "key": "field_whatsapp_btn_url",
+            "label": "Button URL",
+            "name": "whatsapp_btn_url",
+            "type": "url"
+        },
+        {
+            "key": "field_whatsapp_footer_text",
+            "label": "Footer Text",
+            "name": "whatsapp_footer_text",
+            "type": "text",
+            "default_value": "معتاد الرد خلال دقائق"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf/el-nakaa-whatsapp-card"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Fields for El Nakaa WhatsApp Card Block",
+    "show_in_rest": 0
+}

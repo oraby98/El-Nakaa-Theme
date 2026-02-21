@@ -1,0 +1,128 @@
+{
+    "key": "group_el_nakaa_info_cards",
+    "title": "El Nakaa Info Cards",
+    "fields": [
+        {
+            "key": "field_card_1_tab",
+            "label": "Card 1 (Contact Us)",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_card_1_tag",
+            "label": "Tag",
+            "name": "card_1_tag",
+            "type": "text",
+            "default_value": "دعم احترافي"
+        },
+        {
+            "key": "field_card_1_title",
+            "label": "Title",
+            "name": "card_1_title",
+            "type": "text",
+            "default_value": "تواصل معنا"
+        },
+        {
+            "key": "field_card_1_description",
+            "label": "Description",
+            "name": "card_1_description",
+            "type": "textarea",
+            "default_value": "فريق الدعم الفني جاهز لمساعدتك على مدار الساعة",
+            "rows": 3
+        },
+        {
+            "key": "field_card_1_button_text",
+            "label": "Button Text",
+            "name": "card_1_button_text",
+            "type": "text",
+            "default_value": "تواصل الآن"
+        },
+        {
+            "key": "field_card_1_button_url",
+            "label": "Button URL",
+            "name": "card_1_button_url",
+            "type": "url",
+            "default_value": "#"
+        },
+        {
+            "key": "field_card_1_bg_image",
+            "label": "Background Image",
+            "name": "card_1_bg_image",
+            "type": "image",
+            "return_format": "array",
+            "preview_size": "medium",
+            "library": "all"
+        },
+        {
+            "key": "field_card_2_tab",
+            "label": "Card 2 (Spare Parts)",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_card_2_tag",
+            "label": "Tag",
+            "name": "card_2_tag",
+            "type": "text",
+            "default_value": "قطع أصلية"
+        },
+        {
+            "key": "field_card_2_title",
+            "label": "Title",
+            "name": "card_2_title",
+            "type": "text",
+            "default_value": "قطع الغيار"
+        },
+        {
+            "key": "field_card_2_description",
+            "label": "Description",
+            "name": "card_2_description",
+            "type": "textarea",
+            "default_value": "قطع غيار أصلية لجميع منتجات نقاوة مع ضمان الجودة",
+            "rows": 3
+        },
+        {
+            "key": "field_card_2_button_text",
+            "label": "Button Text",
+            "name": "card_2_button_text",
+            "type": "text",
+            "default_value": "تصفح القطع"
+        },
+        {
+            "key": "field_card_2_button_url",
+            "label": "Button URL",
+            "name": "card_2_button_url",
+            "type": "url",
+            "default_value": "#"
+        },
+        {
+            "key": "field_card_2_bg_image",
+            "label": "Background Image",
+            "name": "card_2_bg_image",
+            "type": "image",
+            "return_format": "array",
+            "preview_size": "medium",
+            "library": "all"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf/el-nakaa-info-cards"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Fields for El Nakaa Info Cards Block",
+    "show_in_rest": 0
+}

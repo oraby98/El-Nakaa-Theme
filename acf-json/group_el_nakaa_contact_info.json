@@ -1,0 +1,72 @@
+{
+    "key": "group_el_nakaa_contact_info",
+    "title": "El Nakaa Contact Info",
+    "fields": [
+        {
+            "key": "field_contact_info_title",
+            "label": "Section Title",
+            "name": "contact_info_title",
+            "type": "text",
+            "default_value": "معلومات التواصل"
+        },
+        {
+            "key": "field_contact_info_items",
+            "label": "Info Items",
+            "name": "contact_info_items",
+            "type": "repeater",
+            "layout": "block",
+            "button_label": "Add Item",
+            "sub_fields": [
+                {
+                    "key": "field_contact_info_icon",
+                    "label": "Icon Class",
+                    "name": "icon_class",
+                    "type": "text"
+                },
+                {
+                    "key": "field_contact_info_item_title",
+                    "label": "Title",
+                    "name": "title",
+                    "type": "text"
+                },
+                {
+                    "key": "field_contact_info_desc",
+                    "label": "Description",
+                    "name": "description",
+                    "type": "textarea",
+                    "instructions": "Supports HTML (e.g., <br>)"
+                },
+                {
+                    "key": "field_contact_info_theme",
+                    "label": "Color Theme",
+                    "name": "theme",
+                    "type": "select",
+                    "choices": {
+                        "blue": "Blue (Address)",
+                        "green": "Green (Phone)",
+                        "purple": "Purple (Hours)"
+                    },
+                    "default_value": "blue"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf/el-nakaa-contact-info"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Fields for El Nakaa Contact Info Block",
+    "show_in_rest": 0
+}
