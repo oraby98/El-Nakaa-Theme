@@ -141,8 +141,7 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
                   اتمام عملية الشراء
                 </button>
              </div>
-
-             <?php wp_nonce_field( 'woocommerce-process_checkout', 'woocommerce-process_checkout_nonce' ); ?>
+             <?php wp_nonce_field( 'woocommerce-process_checkout', 'woocommerce-process-checkout-nonce' ); ?>
 
         </div> <!-- End Right Side -->
       </div>

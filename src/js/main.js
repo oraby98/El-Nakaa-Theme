@@ -126,3 +126,66 @@ faqItems.forEach((item) => {
     }
   });
 });
+
+// Hook into YITH Wishlist native AJAX events to update header counters
+jQuery(document).on(
+  'added_to_wishlist removed_from_wishlist yith_wcwl_fragments_loaded yith_wcwl_init',
+  function () {
+    // We bypass YITH fragments completely and just ask our server for the truth
+    if (typeof jQuery !== 'undefined') {
+      const ajaxUrl =
+        typeof window.yith_wcwl_l10n !== 'undefined'
+          ? window.yith_wcwl_l10n.ajax_url
+          : '/wp-admin/admin-ajax.php';
+
+      jQuery.post(
+        ajaxUrl,
+        { action: 'get_wishlist_count' },
+        function (response) {
+          if (response && response.success !== undefined) {
+            const newCount = parseInt(response.data) || 0;
+            const wishlistCounters = document.querySelectorAll(
+              '.yith-wcwl-items-count',
+            );
+
+            wishlistCounters.forEach((counter) => {
+              counter.innerText = newCount;
+              counter.classList.remove('scale-110');
+              setTimeout(
+                () =>
+                  counter.classList.add('scale-110', 'transition-transform'),
+                50,
+              );
+              setTimeout(() => counter.classList.remove('scale-110'), 300);
+            });
+          }
+        },
+      );
+    }
+  },
+);
+
+// Update the counter when fragments are refreshed
+jQuery(document).on('yith_wcwl_fragments_refreshed', function (e, fragments) {
+  const wishlistCounters = document.querySelectorAll('.yith-wcwl-items-count');
+
+  if (fragments && fragments['.yith-wcwl-items-count']) {
+    // If YITH provides the fragment, that's great
+    const newCountHTML = fragments['.yith-wcwl-items-count'];
+
+    wishlistCounters.forEach((counter) => {
+      // Extract just the number from the returned HTML string securely
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = newCountHTML;
+      const count = parseInt(tempDiv.innerText) || 0;
+
+      counter.innerText = count;
+      counter.classList.remove('scale-110');
+      setTimeout(
+        () => counter.classList.add('scale-110', 'transition-transform'),
+        50,
+      );
+      setTimeout(() => counter.classList.remove('scale-110'), 300);
+    });
+  }
+});

@@ -206,3 +206,87 @@ add_action( 'init', function() {
         exit;
     }
 } );
+
+/**
+ * Style YITH WooCommerce Wishlist Button
+ */
+add_filter( 'yith_wcwl_button_class', function( $classes ) {
+    return 'flex-1 bg-white border border-gray-200 text-secColor py-3 md:py-3.5 rounded-xl font-bold hover:bg-mainColor hover:border-mainColor hover:text-secColor transition-all shadow-sm flex flex-row-reverse items-center justify-center gap-2 w-full';
+} );
+
+add_filter( 'yith_wcwl_button_icon', function( $icon ) {
+    return '<i class="fa-regular fa-heart text-lg md:text-xl group-hover:text-red-500"></i>';
+} );
+
+// Translate YITH Strings safely via WordPress Gettext to prevent React crashes
+add_filter( 'gettext', function( $translated_text, $text, $domain ) {
+    if ( 'yith-woocommerce-wishlist' === $domain ) {
+        switch ( $text ) {
+            case 'Browse wishlist':
+                return 'تصفح المفضلة';
+            case 'Add to wishlist':
+                return 'إضافة للمفضلة';
+            case 'Product added!':
+                return 'تمت الإضافة للمفضلة!';
+        }
+    }
+    return $translated_text;
+}, 20, 3 );
+
+/**
+ * Filter checkout fields to match custom template structure
+ */
+add_filter( 'woocommerce_checkout_fields', function( $fields ) {
+    // Make sure we only require fields that exist in our custom design
+    $fields['billing']['billing_last_name']['required'] = false;
+    $fields['billing']['billing_email']['required'] = false;
+    $fields['billing']['billing_postcode']['required'] = false;
+    $fields['billing']['billing_state']['required'] = false;
+
+    return $fields;
+} );
+
+/**
+ * Provide a dummy email if empty to prevent WooCommerce email errors
+ */
+add_action('woocommerce_checkout_process', function() {
+    if ( empty( $_POST['billing_email'] ) ) {
+        $_POST['billing_email'] = 'guest_' . time() . '@no-email.com';
+    }
+});
+
+/**
+ * Update WooCommerce Header Cart Count via AJAX
+ */
+add_filter( 'woocommerce_add_to_cart_fragments', 'bathe_header_add_to_cart_fragment' );
+function bathe_header_add_to_cart_fragment( $fragments ) {
+    ob_start();
+    ?>
+    <span class="cart-count absolute -top-2 -start-2 bg-secColor text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full border-2 border-white"><?php echo function_exists( 'WC' ) && WC()->cart ? WC()->cart->get_cart_contents_count() : 0; ?></span>
+    <?php
+    $fragments['span.cart-count'] = ob_get_clean();
+    return $fragments;
+}
+
+/**
+ * Update YITH Wishlist Header Count via AJAX Fragments
+ */
+add_filter( 'yith_wcwl_fragments', 'bathe_header_yith_wishlist_fragment' );
+function bathe_header_yith_wishlist_fragment( $fragments ) {
+    $count = function_exists( 'yith_wcwl_count_all_products' ) ? yith_wcwl_count_all_products() : 0;
+
+    // We target the specific inner span class that our JS expects
+    $fragments['.yith-wcwl-items-count'] = '<span class="yith-wcwl-items-count">' . $count . '</span>';
+
+    return $fragments;
+}
+
+/**
+ * Custom AJAX Endpoint to reliably fetch Wishlist Count
+ */
+add_action( 'wp_ajax_get_wishlist_count', 'bathe_get_wishlist_count' );
+add_action( 'wp_ajax_nopriv_get_wishlist_count', 'bathe_get_wishlist_count' );
+function bathe_get_wishlist_count() {
+    $count = function_exists( 'yith_wcwl_count_all_products' ) ? yith_wcwl_count_all_products() : 0;
+    wp_send_json_success( $count );
+}

@@ -25,19 +25,7 @@
 
     <!-- Top Bar -->
     <nav>
-      <!-- Mobile Menu Script -->
-      <script>
-        document.addEventListener('DOMContentLoaded', function() {
-          const menuBtn = document.getElementById('menu-btn');
-          const mobileMenu = document.getElementById('mobile-menu');
-
-          if (menuBtn && mobileMenu) {
-            menuBtn.addEventListener('click', () => {
-              mobileMenu.classList.toggle('hidden');
-            });
-          }
-        });
-      </script>
+      <!-- Mobile Menu Script handled in main.js -->
 
       <div class="bg-secColor text-white py-4">
         <div
@@ -91,22 +79,20 @@
 
             <!-- Actions -->
             <div class="flex items-center gap-4 md:gap-6">
-              <a href="<?php echo esc_url( home_url( '/wishlist/' ) ); ?>" class="relative cursor-pointer group">
+              <a href="<?php echo esc_url( home_url( '/المفضلة/' ) ); ?>" class="relative cursor-pointer group">
                 <i
                   class="fa-regular fa-heart text-2xl text-gray-700 group-hover:text-red-500 transition-colors"
                 ></i>
-                <span
-                  class="absolute -top-2 -start-2 bg-red-500 text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full border-2 border-white"
-                  ><?php echo function_exists( 'yith_wcwl_count_all_products' ) ? yith_wcwl_count_all_products() : 0; ?></span>
+                <span class="absolute -top-2 -start-2 bg-red-500 text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full border-2 border-white">
+                  <span class="yith-wcwl-items-count"><?php echo function_exists( 'yith_wcwl_count_all_products' ) ? yith_wcwl_count_all_products() : 0; ?></span>
+                </span>
               </a>
 
-              <a href="<?php echo esc_url( home_url( '/cart/' ) ); ?>" class="relative cursor-pointer group">
+              <a href="<?php echo esc_url( function_exists( 'wc_get_cart_url' ) ? wc_get_cart_url() : home_url( '/cart/' ) ); ?>" class="relative cursor-pointer group">
                 <i
                   class="fa-solid fa-cart-shopping text-2xl text-gray-700 group-hover:text-secColor transition-colors"
                 ></i>
-                <span
-                  class="absolute -top-2 -start-2 bg-secColor text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full border-2 border-white"
-                  ><?php echo count( WC()->cart->get_cart() ); ?></span>
+                <span class="cart-count absolute -top-2 -start-2 bg-secColor text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full border-2 border-white"><?php echo function_exists( 'WC' ) && WC()->cart ? WC()->cart->get_cart_contents_count() : 0; ?></span>
               </a>
 
               <!-- Hamburger Button -->

@@ -96,9 +96,9 @@ defined( 'ABSPATH' ) || exit;
 
     <div class="wc-proceed-to-checkout">
         <!-- Manually creating button to match HTML structure -->
-        <button class="w-full bg-mainColor text-secColor font-bold py-3.5 rounded-xl hover:bg-yellow-500 transition-all shadow-lg shadow-yellow-500/10 active:scale-95 cursor-pointer">
+        <a href="<?php echo esc_url( wc_get_checkout_url() ); ?>" class="block w-full bg-mainColor text-secColor font-bold py-3.5 rounded-xl hover:bg-yellow-500 transition-all shadow-lg shadow-yellow-500/10 active:scale-95 cursor-pointer text-center">
             <?php esc_html_e( 'الدفع', 'woocommerce' ); ?>
-        </button>
+        </a>
     </div>
 
     <?php do_action( 'woocommerce_after_cart_totals' ); ?>

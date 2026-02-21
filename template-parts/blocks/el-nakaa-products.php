@@ -155,19 +155,47 @@ $products_query = new WP_Query($args);
 						</div>
 
 						<div class="flex flex-col sm:flex-row gap-4 mt-6">
-							<a href="<?php echo esc_url($product->add_to_cart_url()); ?>"
-								class="flex-1 bg-mainColor text-secColor py-3 md:py-3.5 rounded-xl font-bold hover:bg-[#ffe14d] hover:text-secColor transition-all shadow-lg shadow-secColor/20 flex items-center justify-center gap-2 group ajax_add_to_cart add_to_cart_button"
+							<?php
+							$in_cart = false;
+							if ( function_exists( 'WC' ) && WC()->cart ) {
+								foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
+									if ( $cart_item['product_id'] == get_the_ID() ) {
+										$in_cart = true;
+										break;
+									}
+								}
+							}
+
+							if ( $in_cart ) {
+								$btn_url = function_exists( 'wc_get_cart_url' ) ? wc_get_cart_url() : home_url( '/cart/' );
+								$btn_text = 'عرض السلة';
+								$btn_classes = 'flex-1 bg-mainColor text-secColor py-3 md:py-3.5 rounded-xl font-bold hover:bg-[#ffe14d] hover:text-secColor transition-all shadow-lg shadow-secColor/20 flex items-center justify-center gap-2 group added';
+							} else {
+								$btn_url = $product->add_to_cart_url();
+								$btn_text = $product->add_to_cart_text();
+								$btn_classes = 'flex-1 bg-mainColor text-secColor py-3 md:py-3.5 rounded-xl font-bold hover:bg-[#ffe14d] hover:text-secColor transition-all shadow-lg shadow-secColor/20 flex items-center justify-center gap-2 group ajax_add_to_cart add_to_cart_button';
+							}
+							?>
+							<a href="<?php echo esc_url($btn_url); ?>"
+								class="<?php echo esc_attr($btn_classes); ?>"
 								data-product_id="<?php echo get_the_ID(); ?>"
 								data-product_sku="<?php echo esc_attr($product->get_sku()); ?>"
 								aria-label="<?php echo esc_attr($product->add_to_cart_description()); ?>"
 								rel="nofollow">
 								<i class="fa-solid fa-cart-shopping text-lg md:text-xl"></i>
-								<span><?php echo esc_html($product->add_to_cart_text()); ?></span>
+								<span><?php echo esc_html($btn_text); ?></span>
 							</a>
-							<a href="?add_to_wishlist=<?php echo get_the_ID(); ?>" class="flex-1 bg-white border border-gray-200 text-secColor py-3 md:py-3.5 rounded-xl font-bold hover:bg-mainColor hover:border-mainColor hover:text-secColor transition-all shadow-sm flex items-center justify-center gap-2 group add_to_wishlist single_add_to_wishlist cursor-pointer" data-product-id="<?php echo get_the_ID(); ?>" data-product-type="simple" data-original-product-id="<?php echo get_the_ID(); ?>" data-title="إضافة للمفضلة" rel="nofollow">
-								<i class="fa-regular fa-heart text-lg md:text-xl yith-wcwl-icon"></i>
-								<span>إضافة للمفضلة</span>
-							</a>
+							<?php if ( defined( 'YITH_WCWL' ) && shortcode_exists( 'yith_wcwl_add_to_wishlist' ) ) : ?>
+								<div class="flex-1 min-w-[35%] el-nakaa-wishlist-wrapper" data-product-id="<?php echo get_the_ID(); ?>">
+									<?php echo do_shortcode( '[yith_wcwl_add_to_wishlist product_id="' . get_the_ID() . '" label="إضافة للمفضلة" browse_wishlist_text="تصفح المفضلة" already_in_wishslist_text="تصفح المفضلة"]' ); ?>
+								</div>
+							<?php else : ?>
+								<!-- Fallback static link if YITH plugin is missing/disabled -->
+								<a href="<?php echo esc_url( home_url( '/wishlist/' ) ); ?>" class="flex-1 bg-white border border-gray-200 text-secColor py-3 md:py-3.5 rounded-xl font-bold hover:bg-mainColor hover:border-mainColor hover:text-secColor transition-all shadow-sm flex items-center justify-center gap-2 group cursor-pointer text-center w-full">
+									<i class="fa-regular fa-heart text-lg md:text-xl group-hover:text-red-500"></i>
+									<span>إضافة للمفضلة</span>
+								</a>
+							<?php endif; ?>
 						</div>
 					</div>
 				</div>

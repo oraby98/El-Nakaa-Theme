@@ -23,15 +23,15 @@ if ($order):
                 </div>
             </div>
 
-            <h1 class="text-4xl font-bold text-textColor mb-4"><?php esc_html_e('Thank you', 'el-nakaa-theme'); ?></h1>
+            <h1 class="text-4xl font-bold text-textColor mb-4"><?php esc_html_e('شكراً لك', 'el-nakaa-theme'); ?></h1>
 
             <p class="text-xl text-secColor font-medium mb-3">
-                <?php esc_html_e('Payment successful and your order is on the way', 'el-nakaa-theme'); ?>
+                <?php esc_html_e('تمت أتمام عملية الدفع بنجاح وطلبك في الطريق', 'el-nakaa-theme'); ?>
             </p>
 
             <p class="text-gray-400 font-medium text-lg dir-ltr">
+                <?php esc_html_e('رقم المعاملة', 'el-nakaa-theme'); ?>:
                 <span class="font-bold"><?php echo $order->get_order_number(); ?></span>
-                :<?php esc_html_e('Transaction Number', 'el-nakaa-theme'); ?>
             </p>
         </div>
 
@@ -40,9 +40,9 @@ if ($order):
             <div class="lg:col-span-7 bg-white p-4">
                 <!-- Products Header -->
                 <div class="hidden md:grid grid-cols-12 gap-4 pb-4 px-4 text-gray-500 font-medium text-sm">
-                    <div class="col-span-6 text-right"><?php esc_html_e('Product Name', 'el-nakaa-theme'); ?></div>
-                    <div class="col-span-3 text-center"><?php esc_html_e('Price', 'el-nakaa-theme'); ?></div>
-                    <div class="col-span-3 text-center"><?php esc_html_e('Quantity', 'el-nakaa-theme'); ?></div>
+                    <div class="col-span-6 text-right"><?php esc_html_e('اسم المنتج', 'el-nakaa-theme'); ?></div>
+                    <div class="col-span-3 text-center"><?php esc_html_e('السعر', 'el-nakaa-theme'); ?></div>
+                    <div class="col-span-3 text-center"><?php esc_html_e('الكمية', 'el-nakaa-theme'); ?></div>
                 </div>
 
                 <?php
@@ -64,13 +64,13 @@ if ($order):
                                 </h3>
                             </div>
                             <div class="md:col-span-3 text-center flex justify-between md:flex-col md:gap-1">
-                                <span class="md:hidden text-gray-400 text-sm"><?php esc_html_e('Price:', 'el-nakaa-theme'); ?></span>
+                                <span class="md:hidden text-gray-400 text-sm"><?php esc_html_e('السعر:', 'el-nakaa-theme'); ?></span>
                                 <span class="font-bold text-secColor md:text-lg">
                                     <?php echo $order->get_formatted_line_subtotal($item); ?>
                                 </span>
                             </div>
                             <div class="md:col-span-3 text-center flex justify-between md:flex-col md:gap-1">
-                                <span class="md:hidden text-gray-400 text-sm"><?php esc_html_e('Quantity:', 'el-nakaa-theme'); ?></span>
+                                <span class="md:hidden text-gray-400 text-sm"><?php esc_html_e('الكمية:', 'el-nakaa-theme'); ?></span>
                                 <span class="font-bold text-gray-900"><?php echo esc_html($item->get_quantity()); ?></span>
                             </div>
                         </div>
@@ -103,7 +103,7 @@ if ($order):
             <div class="lg:col-span-5">
                 <div class="bg-[#FFFCF3] rounded-[40px] p-8 h-fit">
                     <h3 class="text-xl font-bold text-secColor mb-8 text-right">
-                        <?php esc_html_e('Summary', 'el-nakaa-theme'); ?>
+                        <?php esc_html_e('ملخص الطلب', 'el-nakaa-theme'); ?>
                     </h3>
 
                     <div class="space-y-6 text-right">
@@ -114,7 +114,7 @@ if ($order):
                             </address>
                             <?php if ($order->get_billing_phone()) : ?>
                                 <p class="text-gray-400 font-medium text-sm dir-ltr text-right">
-                                    <?php echo esc_html($order->get_billing_phone()); ?> :<?php esc_html_e('Phone Number', 'el-nakaa-theme'); ?>
+                                   <?php esc_html_e('رقم الهاتف', 'el-nakaa-theme'); ?>: <?php echo esc_html($order->get_billing_phone()); ?>
                                 </p>
                             <?php endif; ?>
                         </div>
@@ -124,7 +124,7 @@ if ($order):
                         <!-- Payment Method -->
                         <div>
                             <h4 class="font-bold text-secColor mb-2 text-sm">
-                                <?php esc_html_e('Payment Method', 'el-nakaa-theme'); ?>
+                                <?php esc_html_e('طريقة الدفع', 'el-nakaa-theme'); ?>
                             </h4>
                             <p class="text-gray-400 text-sm md:text-xs">
                                 <?php echo wp_kses_post($order->get_payment_method_title()); ?>
@@ -134,7 +134,7 @@ if ($order):
                         <!-- Delivery Date (Using Order Date as fallback) -->
                         <div>
                             <p class="text-gray-400 text-sm md:text-xs">
-                                <?php esc_html_e('Order Date:', 'el-nakaa-theme'); ?> <?php echo wc_format_datetime($order->get_date_created()); ?>
+                                <?php esc_html_e('تاريخ الطلب:', 'el-nakaa-theme'); ?> <?php echo wc_format_datetime($order->get_date_created()); ?>
                             </p>
                         </div>
                     </div>
