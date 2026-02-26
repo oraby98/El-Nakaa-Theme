@@ -351,9 +351,6 @@
       max-width: 96rem;
     }
   }
-  .m-0 {
-    margin: calc(var(--spacing) * 0);
-  }
   .container {
     margin-inline: auto;
     padding-inline: 1rem;
@@ -922,9 +919,6 @@
   .bg-gray-500 {
     background-color: var(--color-gray-500);
   }
-  .bg-gray-800 {
-    background-color: var(--color-gray-800);
-  }
   .bg-gray-900 {
     background-color: var(--color-gray-900);
   }
@@ -978,9 +972,6 @@
   }
   .object-cover {
     object-fit: cover;
-  }
-  .p-0 {
-    padding: calc(var(--spacing) * 0);
   }
   .p-1 {
     padding: calc(var(--spacing) * 1);
@@ -2274,41 +2265,6 @@
   .ltr\:rotate-180 {
     &:where(:dir(ltr), [dir="ltr"], [dir="ltr"] *) {
       rotate: 180deg;
-    }
-  }
-  .\[\&_a\]\:flex {
-    & a {
-      display: flex;
-    }
-  }
-  .\[\&_a\]\:w-full {
-    & a {
-      width: 100%;
-    }
-  }
-  .\[\&_a\]\:items-center {
-    & a {
-      align-items: center;
-    }
-  }
-  .\[\&_a\]\:justify-center {
-    & a {
-      justify-content: center;
-    }
-  }
-  .\[\&_a\]\:gap-2 {
-    & a {
-      gap: calc(var(--spacing) * 2);
-    }
-  }
-  .\[\&_a\]\:py-3\.5 {
-    & a {
-      padding-block: calc(var(--spacing) * 3.5);
-    }
-  }
-  .\[\&\>div\]\:w-full {
-    &>div {
-      width: 100%;
     }
   }
 }
