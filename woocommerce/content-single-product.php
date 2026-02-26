@@ -185,11 +185,15 @@ $average_rating = $product->get_average_rating();
                   <span>إضافة للسلة</span>
                 </button>
 
-                <!-- Wishlist (Placeholder) -->
-                <button type="button" class="flex-1 bg-white border border-gray-200 text-secColor py-3.5 rounded-xl font-bold hover:border-red-500 hover:text-red-500 transition-all flex items-center justify-center gap-2 group">
-                  <i class="fa-regular fa-heart text-xl leading-none pt-1"></i>
-                  <span>إضافة للمفضلة</span>
-                </button>
+                <!-- Buy Now -->
+                <?php
+                    $checkout_url = function_exists('wc_get_checkout_url') ? wc_get_checkout_url() : home_url('/checkout/');
+                    $buy_now_url = add_query_arg('add-to-cart', $product->get_id(), $checkout_url);
+                ?>
+                <a href="<?php echo esc_url($buy_now_url); ?>" onclick="this.href = '<?php echo esc_url($buy_now_url); ?>&quantity=' + document.getElementById('real-qty').value;" class="flex-1 bg-white border border-gray-200 text-secColor py-3.5 rounded-xl font-bold hover:bg-mainColor hover:border-mainColor hover:text-secColor transition-all shadow-sm flex items-center justify-center gap-2 group cursor-pointer text-center">
+                  <i class="fa-solid fa-bolt text-xl leading-none pt-1 text-yellow-500 group-hover:text-secColor"></i>
+                  <span>شراء الآن</span>
+                </a>
               </div>
           </form>
           <?php endif; ?>
