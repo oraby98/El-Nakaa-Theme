@@ -8,6 +8,8 @@
  * @param   int|string $post_id The post ID this block is saved to.
  */
 
+$attributes = isset($attributes) && is_array($attributes) ? $attributes : array();
+
 // Create id attribute allowing for custom "anchor" value.
 $id = 'el-nakaa-about-us-' . $block['id'];
 if (!empty($block['anchor'])) {
@@ -24,33 +26,33 @@ if (!empty($block['align'])) {
 }
 
 // === About Section Fields ===
-$about_tagline = get_field('about_tagline') ?: 'قصتنا';
-$about_title = get_field('about_title') ?: 'من ورشة صغيرة إلى مصنع رائد';
-$about_content = get_field('about_content') ?: '<p class="text-gray-500 text-base leading-relaxed mb-4">بدأت نقاوة في عام 1998...</p>';
-$about_image = get_field('about_image');
+$about_tagline = el_nakaa_block_value($attributes, 'about_tagline') ?: 'قصتنا';
+$about_title = el_nakaa_block_value($attributes, 'about_title') ?: 'من ورشة صغيرة إلى مصنع رائد';
+$about_content = el_nakaa_block_value($attributes, 'about_content') ?: '<p class="text-gray-500 text-base leading-relaxed mb-4">بدأت نقاوة في عام 1998...</p>';
+$about_image = el_nakaa_block_value($attributes, 'about_image');
 $about_image_url = $about_image ? $about_image['url'] : '/img/about2.png';
 
 // === Vision & Mission Fields ===
-$vision_title = get_field('vision_title') ?: 'رؤيتنا';
-$vision_text = get_field('vision_text') ?: 'أن نكون الخيار الأول للأسرة المصرية...';
-$vision_icon_class = get_field('vision_icon_class') ?: 'fa-regular fa-eye';
+$vision_title = el_nakaa_block_value($attributes, 'vision_title') ?: 'رؤيتنا';
+$vision_text = el_nakaa_block_value($attributes, 'vision_text') ?: 'أن نكون الخيار الأول للأسرة المصرية...';
+$vision_icon_class = el_nakaa_block_value($attributes, 'vision_icon_class') ?: 'fa-regular fa-eye';
 
-$mission_title = get_field('mission_title') ?: 'رسالتنا';
-$mission_text = get_field('mission_text') ?: 'تصنيع أجهزة كهربائية عالية الجودة...';
-$mission_icon_class = get_field('mission_icon_class') ?: 'fa-solid fa-bullseye';
+$mission_title = el_nakaa_block_value($attributes, 'mission_title') ?: 'رسالتنا';
+$mission_text = el_nakaa_block_value($attributes, 'mission_text') ?: 'تصنيع أجهزة كهربائية عالية الجودة...';
+$mission_icon_class = el_nakaa_block_value($attributes, 'mission_icon_class') ?: 'fa-solid fa-bullseye';
 
 // === Core Values Fields ===
-$values_title = get_field('values_title') ?: 'قيمنا الأساسية';
-$values_description = get_field('values_description') ?: 'المبادئ التي نؤمن بها...';
-$values = get_field('values_list');
+$values_title = el_nakaa_block_value($attributes, 'values_title') ?: 'قيمنا الأساسية';
+$values_description = el_nakaa_block_value($attributes, 'values_description') ?: 'المبادئ التي نؤمن بها...';
+$values = el_nakaa_block_value($attributes, 'values_list');
 
 // === CTA Section Fields ===
-$cta_title = get_field('cta_title') ?: 'انضم إلى عائلة نقاوة';
-$cta_text = get_field('cta_text') ?: 'اكتشف منتجاتنا وكن جزءاً من قصة النجاح المصرية';
-$cta_btn1_text = get_field('cta_btn1_text') ?: 'تصفح المنتجات';
-$cta_btn1_url = get_field('cta_btn1_url') ?: '#';
-$cta_btn2_text = get_field('cta_btn2_text') ?: 'تواصل معنا';
-$cta_btn2_url = get_field('cta_btn2_url') ?: '#';
+$cta_title = el_nakaa_block_value($attributes, 'cta_title') ?: 'انضم إلى عائلة نقاوة';
+$cta_text = el_nakaa_block_value($attributes, 'cta_text') ?: 'اكتشف منتجاتنا وكن جزءاً من قصة النجاح المصرية';
+$cta_btn1_text = el_nakaa_block_value($attributes, 'cta_btn1_text') ?: 'تصفح المنتجات';
+$cta_btn1_url = el_nakaa_block_value($attributes, 'cta_btn1_url') ?: '#';
+$cta_btn2_text = el_nakaa_block_value($attributes, 'cta_btn2_text') ?: 'تواصل معنا';
+$cta_btn2_url = el_nakaa_block_value($attributes, 'cta_btn2_url') ?: '#';
 
 ?>
 

@@ -8,6 +8,8 @@
  * @param   int|string $post_id The post ID this block is saved to.
  */
 
+$attributes = isset($attributes) && is_array($attributes) ? $attributes : array();
+
 // Create id attribute allowing for custom "anchor" value.
 $id = 'el-nakaa-social-follow-' . $block['id'];
 if (!empty($block['anchor'])) {
@@ -24,9 +26,9 @@ if (!empty($block['align'])) {
 }
 
 // Load values.
-$title = get_field('social_title') ?: 'تابعنا على وسائل التواصل';
-$text = get_field('social_text') ?: 'ابق على اطلاع بآخر منتجاتنا وعروضنا الحصرية';
-$links = get_field('social_links');
+$title = el_nakaa_block_value($attributes, 'social_title') ?: 'تابعنا على وسائل التواصل';
+$text = el_nakaa_block_value($attributes, 'social_text') ?: 'ابق على اطلاع بآخر منتجاتنا وعروضنا الحصرية';
+$links = el_nakaa_block_value($attributes, 'social_links');
 
 ?>
 

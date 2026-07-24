@@ -5,6 +5,8 @@
  * This is the template that displays the El Nakaa Hero Section block.
  */
 
+$attributes = isset($attributes) && is_array($attributes) ? $attributes : array();
+
 // Create id attribute allowing for custom "anchor" value.
 $id = 'el-nakaa-hero-section-' . $block['id'];
 if (!empty($block['anchor'])) {
@@ -21,16 +23,16 @@ if (!empty($block['align'])) {
 }
 
 // Load values and assign defaults.
-$bg_image = get_field('hero_bg_image');
+$bg_image = el_nakaa_block_value($attributes, 'hero_bg_image');
 $bg_url = $bg_image ? $bg_image['url'] : get_theme_file_uri('assets/images/hero.png');
 
-$title = get_field('hero_title') ?: 'بيور';
-$description = get_field('hero_description') ?: 'مجموعة منتجات بيور من نقاوة تجمع بين الأداء العالي والتصميم النقي لتناسب كل بيت عصري.';
-$button_1_text = get_field('hero_button_1_text') ?: 'تسوق الآن';
-$button_1_url = get_field('hero_button_1_url') ?: '#';
-$button_2_text = get_field('hero_button_2_text') ?: 'اكتشف المزيد';
-$button_2_url = get_field('hero_button_2_url') ?: '#';
-$stats = get_field('hero_stats');
+$title = el_nakaa_block_value($attributes, 'hero_title') ?: 'بيور';
+$description = el_nakaa_block_value($attributes, 'hero_description') ?: 'مجموعة منتجات بيور من نقاوة تجمع بين الأداء العالي والتصميم النقي لتناسب كل بيت عصري.';
+$button_1_text = el_nakaa_block_value($attributes, 'hero_button_1_text') ?: 'تسوق الآن';
+$button_1_url = el_nakaa_block_value($attributes, 'hero_button_1_url') ?: '#';
+$button_2_text = el_nakaa_block_value($attributes, 'hero_button_2_text') ?: 'اكتشف المزيد';
+$button_2_url = el_nakaa_block_value($attributes, 'hero_button_2_url') ?: '#';
+$stats = el_nakaa_block_value($attributes, 'hero_stats');
 
 ?>
 <!-- start Hero -->

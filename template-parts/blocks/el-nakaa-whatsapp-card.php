@@ -8,6 +8,8 @@
  * @param   int|string $post_id The post ID this block is saved to.
  */
 
+$attributes = isset($attributes) && is_array($attributes) ? $attributes : array();
+
 // Create id attribute allowing for custom "anchor" value.
 $id = 'el-nakaa-whatsapp-card-' . $block['id'];
 if (!empty($block['anchor'])) {
@@ -24,11 +26,11 @@ if (!empty($block['align'])) {
 }
 
 // Load values and assign defaults.
-$title = get_field('whatsapp_title') ?: 'راسلنا مباشرة عبر واتساب';
-$text = get_field('whatsapp_text') ?: 'أسرع وأسهل طريقة للتواصل معنا. فريقنا بانتظارك على مدار الساعة لتقديم الدعم المطلوب';
-$btn_text = get_field('whatsapp_btn_text') ?: 'ابدأ المحادثة الآن';
-$btn_url = get_field('whatsapp_btn_url') ?: '#';
-$footer_text = get_field('whatsapp_footer_text') ?: 'معتاد الرد خلال دقائق';
+$title = el_nakaa_block_value($attributes, 'whatsapp_title') ?: 'راسلنا مباشرة عبر واتساب';
+$text = el_nakaa_block_value($attributes, 'whatsapp_text') ?: 'أسرع وأسهل طريقة للتواصل معنا. فريقنا بانتظارك على مدار الساعة لتقديم الدعم المطلوب';
+$btn_text = el_nakaa_block_value($attributes, 'whatsapp_btn_text') ?: 'ابدأ المحادثة الآن';
+$btn_url = el_nakaa_block_value($attributes, 'whatsapp_btn_url') ?: '#';
+$footer_text = el_nakaa_block_value($attributes, 'whatsapp_footer_text') ?: 'معتاد الرد خلال دقائق';
 
 ?>
 

@@ -204,7 +204,7 @@ $average_rating = $product->get_average_rating();
 
     <!-- Features Breakdown Section -->
     <?php
-    $features = get_field('product_features');
+    $features = el_nakaa_product_features( get_the_ID() );
     if($features):
     ?>
     <section class="container mx-auto px-4 my-16 lg:my-24">

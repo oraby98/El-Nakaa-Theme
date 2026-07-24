@@ -6,6 +6,8 @@
  * This is the template that displays the products block.
  */
 
+$attributes = isset($attributes) && is_array($attributes) ? $attributes : array();
+
 // Create id attribute allowing for custom "anchor" value.
 $id = 'el-nakaa-products-' . $block['id'];
 if (!empty($block['anchor'])) {
@@ -23,10 +25,10 @@ if (!empty($block['align'])) {
 
 
 // Load values and assign defaults.
-$section_title = get_field('section_title') ?: 'منتجات بيور المميزة';
-$products_count = get_field('products_count') ?: 8;
-$template_style = get_field('template') ?: '1';
-$product_tabs = get_field('product_tabs');
+$section_title = el_nakaa_block_value($attributes, 'section_title') ?: 'منتجات بيور المميزة';
+$products_count = el_nakaa_block_value($attributes, 'products_count') ?: 8;
+$template_style = el_nakaa_block_value($attributes, 'template') ?: '1';
+$product_tabs = el_nakaa_block_value($attributes, 'product_tabs');
 
 // Prepare Query Arguments
 $args = array(

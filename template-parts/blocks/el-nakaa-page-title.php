@@ -8,6 +8,8 @@
  * @param   int|string $post_id The post ID this block is saved to.
  */
 
+$attributes = isset($attributes) && is_array($attributes) ? $attributes : array();
+
 // Create id attribute allowing for custom "anchor" value.
 $id = 'el-nakaa-page-title-' . $block['id'];
 if (!empty($block['anchor'])) {
@@ -24,9 +26,9 @@ if (!empty($block['align'])) {
 }
 
 // Load values and assign defaults.
-$title = get_field('page_title') ?: 'عن نقاوة';
-$description = get_field('page_title_description');
-$bg_image = get_field('page_title_bg_image');
+$title = el_nakaa_block_value($attributes, 'page_title') ?: 'عن نقاوة';
+$description = el_nakaa_block_value($attributes, 'page_title_description');
+$bg_image = el_nakaa_block_value($attributes, 'page_title_bg_image');
 $bg_image_url = $bg_image ? $bg_image['url'] : '';
 
 ?>

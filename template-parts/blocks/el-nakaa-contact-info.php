@@ -8,6 +8,8 @@
  * @param   int|string $post_id The post ID this block is saved to.
  */
 
+$attributes = isset($attributes) && is_array($attributes) ? $attributes : array();
+
 // Create id attribute allowing for custom "anchor" value.
 $id = 'el-nakaa-contact-info-' . $block['id'];
 if (!empty($block['anchor'])) {
@@ -24,8 +26,8 @@ if (!empty($block['align'])) {
 }
 
 // Load values.
-$title = get_field('contact_info_title') ?: 'معلومات التواصل';
-$items = get_field('contact_info_items');
+$title = el_nakaa_block_value($attributes, 'contact_info_title') ?: 'معلومات التواصل';
+$items = el_nakaa_block_value($attributes, 'contact_info_items');
 
 ?>
 

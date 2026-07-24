@@ -156,9 +156,14 @@ add_filter('nav_menu_css_class', function ($classes, $item, $args) {
     return $classes;
 }, 10, 3);
 
-// Acf block
-// Acf block
-require_once('acf-blocks.php');
+// Legacy ACF blocks remain available during the production migration window.
+require_once get_theme_file_path( 'acf-blocks.php' );
+
+// Native WordPress dynamic blocks (safe to run alongside the legacy blocks).
+require_once get_theme_file_path( 'inc/native-blocks.php' );
+require_once get_theme_file_path( 'inc/native-content.php' );
+require_once get_theme_file_path( 'inc/native-admin.php' );
+require_once get_theme_file_path( 'inc/native-block-migration.php' );
 
 /**
  * ACL Local JSON Configuration

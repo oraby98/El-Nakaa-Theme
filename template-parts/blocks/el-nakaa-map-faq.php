@@ -8,6 +8,8 @@
  * @param   int|string $post_id The post ID this block is saved to.
  */
 
+$attributes = isset($attributes) && is_array($attributes) ? $attributes : array();
+
 // Create id attribute allowing for custom "anchor" value.
 $id = 'el-nakaa-map-faq-' . $block['id'];
 if (!empty($block['anchor'])) {
@@ -24,10 +26,10 @@ if (!empty($block['align'])) {
 }
 
 // Load values.
-$map_iframe = get_field('map_iframe_code');
-$faq_title = get_field('faq_title') ?: 'الأسئلة الشائعة';
-$faq_subtitle = get_field('faq_subtitle') ?: 'إجابات سريعة على أكثر الأسئلة شيوعاً';
-$faqs = get_field('faq_list');
+$map_iframe = el_nakaa_block_value($attributes, 'map_iframe_code');
+$faq_title = el_nakaa_block_value($attributes, 'faq_title') ?: 'الأسئلة الشائعة';
+$faq_subtitle = el_nakaa_block_value($attributes, 'faq_subtitle') ?: 'إجابات سريعة على أكثر الأسئلة شيوعاً';
+$faqs = el_nakaa_block_value($attributes, 'faq_list');
 
 ?>
 

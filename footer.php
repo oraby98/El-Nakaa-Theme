@@ -5,6 +5,14 @@
  * @package Bathe
  */
 
+$footer_features  = el_nakaa_footer_value( 'footer_features', array() );
+$footer_socials   = el_nakaa_footer_value( 'footer_socials', array() );
+$footer_logo      = el_nakaa_image_url( el_nakaa_footer_value( 'footer_logo' ) );
+$footer_about     = el_nakaa_footer_value( 'footer_about_text' );
+$footer_address   = el_nakaa_footer_value( 'footer_address' );
+$footer_phone     = el_nakaa_footer_value( 'footer_phone' );
+$footer_email     = el_nakaa_footer_value( 'footer_email' );
+$footer_copyright = el_nakaa_footer_value( 'footer_copyright' );
 ?>
     <!-- start of footer -->
     <footer>
@@ -13,11 +21,11 @@
         <div class="container mx-auto px-4">
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <?php
-            if( have_rows('footer_features', 'option') ):
-                while( have_rows('footer_features', 'option') ) : the_row();
-                    $icon_class = get_sub_field('icon_class');
-                    $title = get_sub_field('title');
-                    $subtitle = get_sub_field('subtitle');
+            if ( $footer_features ):
+                foreach ( $footer_features as $footer_feature ):
+                    $icon_class = isset( $footer_feature['icon_class'] ) ? $footer_feature['icon_class'] : '';
+                    $title = isset( $footer_feature['title'] ) ? $footer_feature['title'] : '';
+                    $subtitle = isset( $footer_feature['subtitle'] ) ? $footer_feature['subtitle'] : '';
                     ?>
                     <div class="flex items-center gap-4 text-start">
                       <div
@@ -31,7 +39,7 @@
                       </div>
                     </div>
                     <?php
-                endwhile;
+                endforeach;
             endif;
             ?>
           </div>
@@ -48,7 +56,6 @@
             <div class="text-center md:text-start">
               <div class="mb-6 flex justify-center md:justify-start">
                 <?php
-                $footer_logo = get_field('footer_logo', 'option');
                 if($footer_logo): ?>
                     <img src="<?php echo esc_url($footer_logo); ?>" class="w-22" alt="logo" />
                 <?php else: ?>
@@ -56,14 +63,14 @@
                 <?php endif; ?>
               </div>
               <p class="text-gray-400 text-sm leading-relaxed mb-6">
-                <?php echo esc_html(get_field('footer_about_text', 'option')); ?>
+                <?php echo esc_html($footer_about); ?>
               </p>
               <div class="flex justify-center md:justify-start gap-2">
                 <?php
-                if( have_rows('footer_socials', 'option') ):
-                    while( have_rows('footer_socials', 'option') ) : the_row();
-                        $social_icon = get_sub_field('icon_class');
-                        $social_url = get_sub_field('url');
+                if ( $footer_socials ):
+                    foreach ( $footer_socials as $footer_social ):
+                        $social_icon = isset( $footer_social['icon_class'] ) ? $footer_social['icon_class'] : '';
+                        $social_url = isset( $footer_social['url'] ) ? $footer_social['url'] : '';
                         ?>
                         <a
                           href="<?php echo esc_url($social_url); ?>"
@@ -71,7 +78,7 @@
                           ><i class="<?php echo esc_attr($social_icon); ?>"></i
                         ></a>
                         <?php
-                    endwhile;
+                    endforeach;
                 endif;
                 ?>
               </div>
@@ -83,15 +90,15 @@
               <ul class="space-y-4 text-gray-400">
                 <li class="flex items-center gap-3">
                   <i class="fa-solid fa-location-dot text-mainColor"></i>
-                  <span><?php echo esc_html(get_field('footer_address', 'option')); ?></span>
+                  <span><?php echo esc_html($footer_address); ?></span>
                 </li>
                 <li class="flex items-center gap-3">
                   <i class="fa-solid fa-phone text-mainColor"></i>
-                  <span dir="ltr"><?php echo esc_html(get_field('footer_phone', 'option')); ?></span>
+                  <span dir="ltr"><?php echo esc_html($footer_phone); ?></span>
                 </li>
                 <li class="flex items-center gap-3">
                   <i class="fa-regular fa-envelope text-mainColor"></i>
-                  <span><?php echo esc_html(get_field('footer_email', 'option')); ?></span>
+                  <span><?php echo esc_html($footer_email); ?></span>
                 </li>
               </ul>
             </div>
@@ -140,7 +147,7 @@
                 ?>
             </div>
             <p class="max-md:text-center">
-              <?php echo esc_html(get_field('footer_copyright', 'option')); ?>
+              <?php echo esc_html($footer_copyright); ?>
             </p>
           </div>
         </div>

@@ -5,6 +5,8 @@
  * This is the template that displays the El Nakaa Info Cards block (Contact & Spare Parts).
  */
 
+$attributes = isset($attributes) && is_array($attributes) ? $attributes : array();
+
 // Create id attribute allowing for custom "anchor" value.
 $id = 'el-nakaa-info-cards-' . $block['id'];
 if (!empty($block['anchor'])) {
@@ -21,21 +23,21 @@ if (!empty($block['align'])) {
 }
 
 // Card 1 Fields (Contact Us)
-$card1_tag = get_field('card_1_tag') ?: 'دعم احترافي';
-$card1_title = get_field('card_1_title') ?: 'تواصل معنا';
-$card1_desc = get_field('card_1_description') ?: 'فريق الدعم الفني جاهز لمساعدتك على مدار الساعة';
-$card1_btn_text = get_field('card_1_button_text') ?: 'تواصل الآن';
-$card1_btn_url = get_field('card_1_button_url') ?: '#';
-$card1_bg = get_field('card_1_bg_image');
+$card1_tag = el_nakaa_block_value($attributes, 'card_1_tag') ?: 'دعم احترافي';
+$card1_title = el_nakaa_block_value($attributes, 'card_1_title') ?: 'تواصل معنا';
+$card1_desc = el_nakaa_block_value($attributes, 'card_1_description') ?: 'فريق الدعم الفني جاهز لمساعدتك على مدار الساعة';
+$card1_btn_text = el_nakaa_block_value($attributes, 'card_1_button_text') ?: 'تواصل الآن';
+$card1_btn_url = el_nakaa_block_value($attributes, 'card_1_button_url') ?: '#';
+$card1_bg = el_nakaa_block_value($attributes, 'card_1_bg_image');
 $card1_bg_url = $card1_bg ? $card1_bg['url'] : get_theme_file_uri('assets/images/3.png');
 
 // Card 2 Fields (Spare Parts)
-$card2_tag = get_field('card_2_tag') ?: 'قطع أصلية';
-$card2_title = get_field('card_2_title') ?: 'قطع الغيار';
-$card2_desc = get_field('card_2_description') ?: 'قطع غيار أصلية لجميع منتجات نقاوة مع ضمان الجودة';
-$card2_btn_text = get_field('card_2_button_text') ?: 'تصفح القطع';
-$card2_btn_url = get_field('card_2_button_url') ?: '#';
-$card2_bg = get_field('card_2_bg_image');
+$card2_tag = el_nakaa_block_value($attributes, 'card_2_tag') ?: 'قطع أصلية';
+$card2_title = el_nakaa_block_value($attributes, 'card_2_title') ?: 'قطع الغيار';
+$card2_desc = el_nakaa_block_value($attributes, 'card_2_description') ?: 'قطع غيار أصلية لجميع منتجات نقاوة مع ضمان الجودة';
+$card2_btn_text = el_nakaa_block_value($attributes, 'card_2_button_text') ?: 'تصفح القطع';
+$card2_btn_url = el_nakaa_block_value($attributes, 'card_2_button_url') ?: '#';
+$card2_bg = el_nakaa_block_value($attributes, 'card_2_bg_image');
 $card2_bg_url = $card2_bg ? $card2_bg['url'] : get_theme_file_uri('assets/images/2.png');
 
 ?>
