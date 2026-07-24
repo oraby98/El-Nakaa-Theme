@@ -1,6 +1,9 @@
 <?php
 /**
  * Review Order (Totals Only)
+ *
+ * @package WooCommerce\Templates
+ * @version 5.2.0
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -52,9 +55,13 @@ if ( ! defined( 'ABSPATH' ) ) {
          </div>
       <?php endforeach; ?>
 
+      <?php do_action( 'woocommerce_review_order_before_order_total' ); ?>
+
       <div class="flex justify-between items-center text-[#937801] font-bold text-lg pt-2">
         <span>الإجمالي</span>
         <span><?php wc_cart_totals_order_total_html(); ?></span>
       </div>
+
+      <?php do_action( 'woocommerce_review_order_after_order_total' ); ?>
     </div>
 </div>

@@ -4,6 +4,7 @@
  * Cart Page
  *
  * @package WooCommerce/Templates
+ * @version 10.8.0
  */
 
 defined('ABSPATH') || exit;
@@ -52,8 +53,10 @@ do_action('woocommerce_before_cart'); ?>
 							foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
 								$_product   = apply_filters('woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key);
 								$product_id = apply_filters('woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key);
+								$visible    = apply_filters('woocommerce_cart_item_visible', true, $cart_item, $cart_item_key);
 
-								if ($_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters('woocommerce_cart_item_visible', true, $cart_item, $cart_item_key)) {
+								if ($_product instanceof WC_Product && $_product->exists() && $cart_item['quantity'] > 0 && $visible) {
+									$product_name      = apply_filters('woocommerce_cart_item_name', $_product->get_name(), $cart_item, $cart_item_key);
 									$product_permalink = apply_filters('woocommerce_cart_item_permalink', $_product->is_visible() ? $_product->get_permalink($cart_item) : '', $cart_item, $cart_item_key);
 							?>
 									<tr class="woocommerce-cart-form__cart-item <?php echo esc_attr(apply_filters('woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key)); ?> group hover:bg-gray-50 transition-colors grid grid-cols-1 md:table-row relative">
@@ -76,7 +79,7 @@ do_action('woocommerce_before_cart'); ?>
 													<h3 class="font-bold text-secColor mb-1 leading-snug">
 														<?php
 														if (! $product_permalink) {
-															echo wp_kses_post(apply_filters('woocommerce_cart_item_name', $_product->get_name(), $cart_item, $cart_item_key) . '&nbsp;');
+															echo wp_kses_post($product_name . '&nbsp;');
 														} else {
 															echo wp_kses_post(apply_filters('woocommerce_cart_item_name', sprintf('<a href="%s" class="text-secColor hover:text-mainColor transition-colors">%s</a>', esc_url($product_permalink), $_product->get_name()), $cart_item, $cart_item_key));
 														}
@@ -100,7 +103,8 @@ do_action('woocommerce_before_cart'); ?>
 													sprintf(
 														'<a href="%s" class="md:hidden absolute top-4 left-4 text-gray-300 hover:text-red-500 remove-btn" aria-label="%s" data-product_id="%s" data-product_sku="%s"><i class="fa-solid fa-xmark"></i></a>',
 														esc_url(wc_get_cart_remove_url($cart_item_key)),
-														esc_html__('Remove this item', 'woocommerce'),
+														/* translators: %s is the product name */
+														esc_attr(sprintf(__('Remove %s from cart', 'woocommerce'), wp_strip_all_tags($product_name))),
 														esc_attr($product_id),
 														esc_attr($_product->get_sku())
 													),
@@ -174,7 +178,8 @@ do_action('woocommerce_before_cart'); ?>
 												sprintf(
 													'<a href="%s" class="w-8 h-8 rounded-full text-gray-300 hover:text-red-500 transition-colors inline-flex justify-center items-center cursor-pointer remove-btn" aria-label="%s" data-product_id="%s" data-product_sku="%s"><i class="fa-solid fa-xmark text-lg"></i></a>',
 													esc_url(wc_get_cart_remove_url($cart_item_key)),
-													esc_html__('Remove this item', 'woocommerce'),
+													/* translators: %s is the product name */
+													esc_attr(sprintf(__('Remove %s from cart', 'woocommerce'), wp_strip_all_tags($product_name))),
 													esc_attr($product_id),
 													esc_attr($_product->get_sku())
 												),
@@ -193,6 +198,7 @@ do_action('woocommerce_before_cart'); ?>
 							<tr>
 								<td colspan="6" class="actions">
 									<button type="submit" class="button hidden" name="update_cart" value="<?php esc_attr_e('Update cart', 'woocommerce'); ?>" style="display:none !important;"><?php esc_html_e('Update cart', 'woocommerce'); ?></button>
+									<?php do_action('woocommerce_cart_coupon'); ?>
 									<?php do_action('woocommerce_cart_actions'); ?>
 									<?php wp_nonce_field('woocommerce-cart', 'woocommerce-cart-nonce'); ?>
 								</td>
@@ -201,6 +207,7 @@ do_action('woocommerce_before_cart'); ?>
 							<?php do_action('woocommerce_after_cart_contents'); ?>
 						</tbody>
 					</table>
+					<?php do_action('woocommerce_after_cart_table'); ?>
 				</div>
 			</div>
 

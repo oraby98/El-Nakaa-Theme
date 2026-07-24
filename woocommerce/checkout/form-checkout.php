@@ -12,7 +12,7 @@
  *
  * @see https://woocommerce.com/document/template-structure/
  * @package WooCommerce\Templates
- * @version 3.5.0
+ * @version 9.4.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -29,21 +29,25 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 
 ?>
 
-<form name="checkout" method="post" class="checkout woocommerce-checkout" action="<?php echo esc_url( wc_get_checkout_url() ); ?>" enctype="multipart/form-data">
+<form name="checkout" method="post" class="checkout woocommerce-checkout" action="<?php echo esc_url( wc_get_checkout_url() ); ?>" enctype="multipart/form-data" aria-label="<?php echo esc_attr__( 'Checkout', 'woocommerce' ); ?>">
 
     <section class="container mx-auto py-10 px-4 min-h-[60vh]">
       <div class="flex flex-col lg:flex-row gap-8">
         <!-- Order Summary (Left Sidebar) -->
         <div class="w-full lg:w-1/4 order-1 lg:order-2">
+			<?php do_action( 'woocommerce_checkout_before_order_review_heading' ); ?>
 			<!-- Order Review -->
 			<div id="order_review" class="woocommerce-checkout-review-order">
+				<?php do_action( 'woocommerce_checkout_before_order_review' ); ?>
 				<?php do_action( 'woocommerce_checkout_order_review' ); ?>
+				<?php do_action( 'woocommerce_checkout_after_order_review' ); ?>
 			</div>
         </div>
 
         <!-- Main Content (Right Side) -->
         <div class="w-full lg:w-3/4 order-2 lg:order-1 space-y-6">
           <!-- Customer Data Card -->
+          <?php do_action( 'woocommerce_checkout_before_customer_details' ); ?>
           <div class="bg-white border border-gray-200 rounded-3xl p-6 md:p-8">
             <div class="flex items-center gap-2 mb-2">
               <i class="fa-regular fa-file-lines text-xl text-gray-700"></i>
@@ -108,6 +112,7 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
               </div>
             </div>
           </div>
+          <?php do_action( 'woocommerce_checkout_after_customer_details' ); ?>
 
           <!-- Payment Card -->
           <div class="bg-white border border-gray-200 rounded-3xl p-6 md:p-8">
@@ -137,9 +142,15 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
                 </div>
                <?php endif; ?>
 
-                <button type="submit" class="w-full bg-mainColor text-secColor font-bold py-4 rounded-xl hover:bg-yellow-500 transition-all shadow-lg shadow-yellow-500/10 active:scale-95 cursor-pointer text-lg" name="woocommerce_checkout_place_order" id="place_order" value="اتمام عملية الشراء" data-value="اتمام عملية الشراء">
-                  اتمام عملية الشراء
-                </button>
+                <?php
+                $order_button_text = apply_filters( 'woocommerce_order_button_text', 'اتمام عملية الشراء' );
+                do_action( 'woocommerce_review_order_before_submit' );
+                echo apply_filters( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                  'woocommerce_order_button_html',
+                  '<button type="submit" class="w-full bg-mainColor text-secColor font-bold py-4 rounded-xl hover:bg-yellow-500 transition-all shadow-lg shadow-yellow-500/10 active:scale-95 cursor-pointer text-lg" name="woocommerce_checkout_place_order" id="place_order" value="' . esc_attr( $order_button_text ) . '" data-value="' . esc_attr( $order_button_text ) . '">' . esc_html( $order_button_text ) . '</button>'
+                );
+                do_action( 'woocommerce_review_order_after_submit' );
+                ?>
              </div>
              <?php wp_nonce_field( 'woocommerce-process_checkout', 'woocommerce-process-checkout-nonce' ); ?>
 

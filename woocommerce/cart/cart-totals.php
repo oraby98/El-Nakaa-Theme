@@ -3,6 +3,7 @@
  * Cart totals
  *
  * @package WooCommerce/Templates
+ * @version 2.3.6
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -22,6 +23,14 @@ defined( 'ABSPATH' ) || exit;
             <span><?php esc_html_e( 'Subtotal', 'woocommerce' ); ?></span>
             <span data-title="<?php esc_attr_e( 'Subtotal', 'woocommerce' ); ?>"><?php wc_cart_totals_subtotal_html(); ?></span>
         </div>
+
+        <!-- Coupons -->
+        <?php foreach ( WC()->cart->get_coupons() as $code => $coupon ) : ?>
+            <div class="flex justify-between items-center text-gray-500 text-sm font-bold coupon-<?php echo esc_attr( sanitize_title( $code ) ); ?>">
+                <span><?php wc_cart_totals_coupon_label( $coupon ); ?></span>
+                <span data-title="<?php esc_attr_e( 'Coupon', 'woocommerce' ); ?>"><?php wc_cart_totals_coupon_html( $coupon ); ?></span>
+            </div>
+        <?php endforeach; ?>
 
         <!-- Shipping -->
         <?php if ( WC()->cart->needs_shipping() && WC()->cart->show_shipping() ) : ?>
