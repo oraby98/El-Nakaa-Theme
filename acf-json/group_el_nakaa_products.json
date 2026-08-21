@@ -57,6 +57,46 @@
                     "multiple": 0
                 }
             ]
+        },
+        {
+            "key": "field_products_show_view_more",
+            "label": "Show View More Button",
+            "name": "show_view_more",
+            "type": "true_false",
+            "default_value": 1,
+            "ui": 1
+        },
+        {
+            "key": "field_products_view_more_text",
+            "label": "View More Button Text",
+            "name": "view_more_text",
+            "type": "text",
+            "default_value": "مشاهده المزيد",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_products_show_view_more",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ]
+        },
+        {
+            "key": "field_products_view_more_url",
+            "label": "View More Button URL",
+            "name": "view_more_url",
+            "type": "url",
+            "instructions": "Leave blank to link automatically to the Shop page.",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_products_show_view_more",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ]
         }
     ],
     "location": [

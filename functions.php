@@ -122,8 +122,10 @@ add_action(
 		wp_enqueue_style( 'bathe', get_theme_file_uri( 'assets/css/main.css' ), array(), rand() );
 		wp_enqueue_style( 'font-awesome', get_theme_file_uri( 'assets/font awesome/all.min.css' ), array(), rand() );
 
-
 		wp_enqueue_script( 'bathe', get_theme_file_uri( 'src/js/main.js' ), array(), rand(), true );
+		wp_localize_script( 'bathe', 'elNakaaAjax', array(
+			'ajaxurl' => admin_url( 'admin-ajax.php' ),
+		) );
 		wp_enqueue_script( 'font-awesome', get_theme_file_uri( 'assets/font awesome/all.min.js' ), array(), rand(), true );
 
 		if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
@@ -131,7 +133,6 @@ add_action(
 		}
 	}
 );
-
 
 /**
  * Add Tailwind classes to menu links
@@ -207,7 +208,6 @@ remove_action( 'woocommerce_checkout_order_review', 'woocommerce_checkout_paymen
  */
 add_action( 'init', function() {
     if ( isset( $_GET['empty_cart'] ) && $_GET['empty_cart'] == 'yes' ) {
-        WC()->cart->empty_cart();
         wp_safe_redirect( wc_get_cart_url() );
         exit;
     }
@@ -262,32 +262,6 @@ add_action('woocommerce_checkout_process', function() {
 });
 
 /**
- * Update WooCommerce Header Cart Count via AJAX
- */
-add_filter( 'woocommerce_add_to_cart_fragments', 'bathe_header_add_to_cart_fragment' );
-function bathe_header_add_to_cart_fragment( $fragments ) {
-    ob_start();
-    ?>
-    <span class="cart-count absolute -top-2 -start-2 bg-secColor text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full border-2 border-white"><?php echo function_exists( 'WC' ) && WC()->cart ? WC()->cart->get_cart_contents_count() : 0; ?></span>
-    <?php
-    $fragments['span.cart-count'] = ob_get_clean();
-    return $fragments;
-}
-
-/**
- * Update YITH Wishlist Header Count via AJAX Fragments
- */
-add_filter( 'yith_wcwl_fragments', 'bathe_header_yith_wishlist_fragment' );
-function bathe_header_yith_wishlist_fragment( $fragments ) {
-    $count = function_exists( 'yith_wcwl_count_all_products' ) ? yith_wcwl_count_all_products() : 0;
-
-    // We target the specific inner span class that our JS expects
-    $fragments['.yith-wcwl-items-count'] = '<span class="yith-wcwl-items-count">' . $count . '</span>';
-
-    return $fragments;
-}
-
-/**
  * Custom AJAX Endpoint to reliably fetch Wishlist Count
  */
 add_action( 'wp_ajax_get_wishlist_count', 'bathe_get_wishlist_count' );
@@ -295,4 +269,59 @@ add_action( 'wp_ajax_nopriv_get_wishlist_count', 'bathe_get_wishlist_count' );
 function bathe_get_wishlist_count() {
     $count = function_exists( 'yith_wcwl_count_all_products' ) ? yith_wcwl_count_all_products() : 0;
     wp_send_json_success( $count );
+}
+
+/**
+ * AJAX Handler for Loading More Products
+ */
+add_action( 'wp_ajax_el_nakaa_load_more_products', 'el_nakaa_ajax_load_more_products' );
+add_action( 'wp_ajax_nopriv_el_nakaa_load_more_products', 'el_nakaa_ajax_load_more_products' );
+function el_nakaa_ajax_load_more_products() {
+    $page           = isset( $_POST['page'] ) ? absint( $_POST['page'] ) : 1;
+    $per_page       = isset( $_POST['per_page'] ) ? absint( $_POST['per_page'] ) : 8;
+    $template_style = isset( $_POST['template'] ) ? sanitize_text_field( $_POST['template'] ) : '1';
+    $categories     = isset( $_POST['categories'] ) ? sanitize_text_field( $_POST['categories'] ) : '';
+
+    $args = array(
+        'post_type'      => 'product',
+        'posts_per_page' => $per_page,
+        'paged'          => $page,
+        'post_status'    => 'publish',
+    );
+
+    if ( ! empty( $categories ) ) {
+        $cat_ids = array_filter( array_map( 'absint', explode( ',', $categories ) ) );
+        if ( ! empty( $cat_ids ) ) {
+            $args['tax_query'] = array(
+                array(
+                    'taxonomy' => 'product_cat',
+                    'field'    => 'term_id',
+                    'terms'    => $cat_ids,
+                    'operator' => 'IN',
+                ),
+            );
+        }
+    }
+
+    $query = new WP_Query( $args );
+
+    ob_start();
+    if ( $query->have_posts() ) {
+        while ( $query->have_posts() ) {
+            $query->the_post();
+            global $product;
+            if ( ! is_a( $product, 'WC_Product' ) ) {
+                $product = wc_get_product( get_the_ID() );
+            }
+            include get_theme_file_path( 'template-parts/product-card.php' );
+        }
+        wp_reset_postdata();
+    }
+    $html = ob_get_clean();
+
+    wp_send_json_success( array(
+        'html'      => $html,
+        'has_more'  => $page < (int) $query->max_num_pages,
+        'max_pages' => (int) $query->max_num_pages,
+    ) );
 }

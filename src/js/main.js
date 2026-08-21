@@ -9,62 +9,163 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Pure Products Tabs Logic
-  const tabBtns = document.querySelectorAll('.tab-btn');
-  const productItems = document.querySelectorAll('.product-item');
+  // Pure Products Tabs & AJAX Load More Logic
+  const productSections = document.querySelectorAll('.el-nakaa-products');
 
-  tabBtns.forEach((btn) => {
-    btn.addEventListener('click', function () {
-      // Remove active class from all buttons
-      tabBtns.forEach((b) => {
-        b.classList.remove(
+  productSections.forEach((section) => {
+    const tabBtns = section.querySelectorAll('.tab-btn');
+
+    tabBtns.forEach((btn) => {
+      btn.addEventListener('click', function () {
+        // Remove active class from all buttons in this section
+        tabBtns.forEach((b) => {
+          b.classList.remove(
+            'bg-mainColor',
+            'text-secColor',
+            'active',
+            'shadow-sm',
+          );
+          b.classList.add(
+            'text-gray-500',
+            'hover:text-secColor',
+            'hover:bg-gray-100',
+          );
+        });
+
+        // Add active class to clicked button
+        this.classList.remove(
+          'text-gray-500',
+          'hover:text-secColor',
+          'hover:bg-gray-100',
+        );
+        this.classList.add(
           'bg-mainColor',
           'text-secColor',
           'active',
           'shadow-sm',
         );
-        b.classList.add(
-          'text-gray-500',
-          'hover:text-secColor',
-          'hover:bg-gray-100',
-        );
-      });
 
-      // Add active class to clicked button
-      this.classList.remove(
-        'text-gray-500',
-        'hover:text-secColor',
-        'hover:bg-gray-100',
-      );
-      this.classList.add(
-        'bg-mainColor',
-        'text-secColor',
-        'active',
-        'shadow-sm',
-      );
+        // Filter Products (query dynamically to include any newly AJAX loaded cards)
+        const target = this.getAttribute('data-tab');
+        const currentProductItems = section.querySelectorAll('.product-item');
 
-      // Filter Products
-      const target = this.getAttribute('data-tab');
+        currentProductItems.forEach((item) => {
+          const categories = item.getAttribute('data-categories') || '';
+          const catList = categories.split(/\s+/).filter(Boolean);
 
-      productItems.forEach((item) => {
-        const categories = item.getAttribute('data-categories');
-
-        if (target === 'all') {
-          item.classList.remove('hidden');
-          item.classList.add('flex');
-        } else {
-          // Check if the product has the category class
-          // We check if the data-categories string contains "cat-ID"
-          if (categories && categories.includes(target)) {
+          if (target === 'all') {
             item.classList.remove('hidden');
             item.classList.add('flex');
           } else {
-            item.classList.add('hidden');
-            item.classList.remove('flex');
+            if (catList.includes(target)) {
+              item.classList.remove('hidden');
+              item.classList.add('flex');
+            } else {
+              item.classList.add('hidden');
+              item.classList.remove('flex');
+            }
           }
-        }
+        });
       });
     });
+
+    // AJAX Load More Logic for this section
+    const loadMoreBtn = section.querySelector('.load-more-products-btn');
+    const productsContainer = section.querySelector('#products-container');
+
+    if (loadMoreBtn && productsContainer) {
+      loadMoreBtn.addEventListener('click', function () {
+        const btn = this;
+        let currentPage = parseInt(btn.getAttribute('data-page')) || 1;
+        const maxPages = parseInt(btn.getAttribute('data-max-pages')) || 1;
+        const perPage = parseInt(btn.getAttribute('data-per-page')) || 8;
+        const template = btn.getAttribute('data-template') || '1';
+        const categories = btn.getAttribute('data-categories') || '';
+        const defaultText = btn.getAttribute('data-btn-text') || 'مشاهده المزيد';
+
+        if (currentPage >= maxPages) {
+          const wrapper = btn.closest('.load-more-wrapper');
+          if (wrapper) wrapper.style.display = 'none';
+          return;
+        }
+
+        const nextPage = currentPage + 1;
+        const btnText = btn.querySelector('.btn-text');
+        const btnSpinner = btn.querySelector('.btn-spinner');
+
+        // Loading UI state
+        btn.disabled = true;
+        if (btnSpinner) btnSpinner.classList.remove('hidden');
+        if (btnText) btnText.textContent = 'جاري التحميل...';
+
+        const ajaxUrl =
+          (typeof elNakaaAjax !== 'undefined' && elNakaaAjax.ajaxurl) ||
+          (typeof window.yith_wcwl_l10n !== 'undefined'
+            ? window.yith_wcwl_l10n.ajax_url
+            : '/wp-admin/admin-ajax.php');
+
+        const formData = new FormData();
+        formData.append('action', 'el_nakaa_load_more_products');
+        formData.append('page', nextPage);
+        formData.append('per_page', perPage);
+        formData.append('template', template);
+        formData.append('categories', categories);
+
+        fetch(ajaxUrl, {
+          method: 'POST',
+          body: formData,
+        })
+          .then((res) => res.json())
+          .then((response) => {
+            if (response && response.success && response.data.html) {
+              const tempDiv = document.createElement('div');
+              tempDiv.innerHTML = response.data.html;
+              const newItems = Array.from(
+                tempDiv.querySelectorAll('.product-item'),
+              );
+
+              // Check current active tab
+              const activeTabBtn = section.querySelector('.tab-btn.active');
+              const activeTab = activeTabBtn
+                ? activeTabBtn.getAttribute('data-tab')
+                : 'all';
+
+              newItems.forEach((item) => {
+                const itemCats = item.getAttribute('data-categories') || '';
+                const catList = itemCats.split(/\s+/).filter(Boolean);
+
+                if (activeTab !== 'all' && !catList.includes(activeTab)) {
+                  item.classList.add('hidden');
+                  item.classList.remove('flex');
+                }
+
+                productsContainer.appendChild(item);
+              });
+
+              btn.setAttribute('data-page', nextPage);
+
+              if (
+                !response.data.has_more ||
+                nextPage >= response.data.max_pages
+              ) {
+                const wrapper = btn.closest('.load-more-wrapper');
+                if (wrapper) wrapper.style.display = 'none';
+              }
+            } else {
+              const wrapper = btn.closest('.load-more-wrapper');
+              if (wrapper) wrapper.style.display = 'none';
+            }
+          })
+          .catch((err) => {
+            console.error('Error loading more products:', err);
+          })
+          .finally(() => {
+            btn.disabled = false;
+            if (btnSpinner) btnSpinner.classList.add('hidden');
+            if (btnText) btnText.textContent = defaultText;
+          });
+      });
+    }
   });
 });
 
